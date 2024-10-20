@@ -1,0 +1,106 @@
+@page
+@model Store.Pages.Admin.AddProduct
+ 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <nav class="breadcrumbs">
+                <ul>
+                    <li><a asp-page="/Home/index">Home</a></li>
+                    <li><span>Cart</span></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+
+<div class="container-fluid">
+    <div id="photoUrls">
+        <div class="col-md-12">
+            <label for="photoInput" class="form-label">Upload Photo</label>
+            <input type="file" id="photoInput" class="form-control" accept="image/*" required>
+            <span class="text-danger" id="validationMessage"></span>
+            <div class="mt-3">
+                <img id="photoPreview" src="#" alt="Photo Preview" style="max-width: 300px; max-height: 300px; display: none;" />
+            </div>
+        </div>
+        <input type="hidden" id="photoBytes" name="PhotoBytes" />
+    </div>
+
+    <script>
+        document.getElementById('photoInput').addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            const validationMessage = document.getElementById('validationMessage');
+            const photoPreview = document.getElementById('photoPreview');
+            const photoBytesInput = document.getElementById('photoBytes');
+
+            // Reset previous validation message and preview
+            validationMessage.textContent = '';
+            photoPreview.style.display = 'none';
+
+            if (file) {
+                // Validate the file type (only images)
+                const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+                if (!allowedTypes.includes(file.type)) {
+                    validationMessage.textContent = 'Only JPEG, PNG, and GIF files are allowed.';
+                    return;
+                }
+
+                // Read the file as DataURL and show preview
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    photoPreview.src = e.target.result;
+                    photoPreview.style.display = 'block';
+
+                    // Convert the image to base64 string and store it in a hidden input
+                    const base64String = e.target.result.split(',')[1];
+                    photoBytesInput.value = base64String;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+    
+    <div class="col-md-12">
+        <label asp-for="@Model.Product.Name" class="form-label class=form-label required"></label>
+        <input asp-for="@Model.Product.Name" class="form-control" placeholder="Ryzen 5600Rx" aria_label="Name" required="required" />
+        <span asp-validation-for="@Model.Product.Name" class="text-danger"></span>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2">
+            <label asp-for="@Model.Product.Price" class="form-label required"> </label>
+            <input asp-for="@Model.Product.Price" class="form-control" placeholder="999.38" aria_label="Price" required="required" />
+            <span asp-validation-for="@Model.Product.Price" class="text-danger"></span>
+        </div>
+
+        <div class="col-md-2">
+            <label asp-for="@Model.Product.Quantity" class="form-label required"></label>
+            <input asp-for="@Model.Product.Quantity" class="form-control" placeholder="10" aria_label="Amount" required="required" />
+            <span asp-validation-for="@Model.Product.Quantity" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="col-md-12">
+        <label asp-for="@Model.Product.ShortDescription" class="form-label required"></label>
+        <input asp-for="@Model.Product.ShortDescription" class="form-control" placeholder="shortDescription" aria_label="Brand" required="required" />
+        <span asp-validation-for="@Model.Product.ShortDescription" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-12">
+        <label asp-for="@Model.Product.FullDescription" class="form-label required"></label>
+        <input asp-for="@Model.Product.FullDescription" class="form-control" placeholder="fullDescription" aria_label="Model" required="required" />        
+        <span asp-validation-for="@Model.Product.FullDescription" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-12">
+        <label asp-for="@Model.Product.Category" class="form-label required"></label>
+        <input asp-for="@Model.Product.Category" class="form-control" placeholder="category" aria_label="Category" required="required" />
+        <span asp-validation-for="@Model.Product.Category" class="text-danger"></span>
+    </div>
+
+    <div class="col-md-12 mt-3">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</div>

@@ -1,0 +1,23 @@
+@model Store.DTO.ProductDto
+
+<div class="col-lg-3 col-md-4 col-sm-6 mb-3">
+    <div class="product-card">
+        <div class="product-thumb">
+            <a asp-page="/Products/Product" asp-route-id="@Model.Id">
+                <img src="@Model.Photo" alt="@Model.Name" width="300" height="300">
+            </a>
+        </div>
+        <div class="product-details">
+            <h4>
+                <a asp-page="/Products/Product" asp-route-id="@Model.Id">@Model.Name</a>
+            </h4>
+            <p class="product-excerpt">@Model.ShortDescription</p>
+            <div class="product-bottom-details d-flex justify-content-between">
+                <div class="product-price">@Model.Price$</div>
+                <div class="product-links">
+                    <a asp-page="/Products/Product" asp-route-id="@Model.Id" class="btn btn-outline-secondary add-to-cart">Add to cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

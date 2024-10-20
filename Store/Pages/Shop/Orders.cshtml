@@ -1,0 +1,67 @@
+@page
+@model Store.Pages.Shop.Orders
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <nav class="breadcrumbs">
+                <ul>
+                    <li><a asp-page="/Home/Index">Home</a></li>
+                    <li><span>Delivery</span></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 mb-3">
+            <div class="cart-content p-3 h-100 bg-white">
+                <div class="table-responsive">
+                    <table class="table align-middle table-hover">
+                        <thead class="table-dark">
+                        <tr>
+                            <th>ID Delivery</th>
+                            <th>Name Surname</th>
+                            <th>Email</th>
+                            <th>Country</th>
+                            <th>City</th>
+                            <th>Address</th>
+                            <th>Phone</th>
+                            <th>Total Cost</th>
+                            <th>Status Delivery</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        <tr>
+                            <td class="align-middle text-center">id</td>
+                            <td class="align-middle text-center">Name</td>
+                            <td class="align-middle text-center">Email</td>
+                            <td class="align-middle text-center">Country</td>
+                            <td class="align-middle text-center">City</td>
+                            <td class="align-middle text-center">Address</td>
+                            <td class="align-middle text-center">Phone</td>
+                            <td class="align-middle text-center">20$</td>
+                            <td class="align-middle text-center"><button type="submit" class="btn btn-danger">Status: status</button></td>
+                            <td class="align-middle text-center">
+                                <a asp-page="/Shop/OrderDetails" asp-route-id="2" class="btn btn-primary">
+                                    View Products
+                                </a>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="text-center">
+                    <h3>There are not actual orders in the current time.</h3>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+

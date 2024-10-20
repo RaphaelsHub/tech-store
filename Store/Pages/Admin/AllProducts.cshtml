@@ -1,0 +1,86 @@
+@page
+@model Store.Pages.Admin.AllProducts
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <nav class="breadcrumbs">
+                <ul>
+                    <li>
+                        <a asp-page="/Home/Index">Home</a>
+                    </li>
+                    <li>
+                        <span>AllProducts</span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 mb-3">
+            <div class="cart-content p-3 h-100 bg-white">
+                <div class="table-responsive">
+                    @if (Model.Products.Items.Any())
+                    {
+                        <table class="table align-middle table-hover">
+                            <thead class="table-dark">
+                            <tr>
+                                <th>ID Product</th>
+                                <th>Photo</th>
+                                <th>Name</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Delete</th>
+                                <th>Edit</th>
+                                <th>Action</th>
+                            </tr>
+                            </thead>
+                            @foreach (var item in Model.Products.Items)
+                            {
+                                <tbody>
+                                <tr>
+                                    <td class="align-middle text-center">@item.Id</td>
+                                    <td class="align-middle text-center">
+                                        <img src="~/Images/productTemplate.png" alt="Product Image">
+                                    </td>
+                                    <td class="align-middle text-center">@item.Name</td>
+                                    <td class="align-middle text-center">@item.Price</td>
+                                    <td class="align-middle text-center">@item.Quantity</td>
+                                    <td class="align-middle text-center">
+                                        <form method="post" action="@Url.Action("DeleteDelivery", "Admin")">
+                                            <input type="hidden" name="id" value="@item.Id"/>
+                                            <button type="submit" class="btn btn-danger">Delete</button>
+                                        </form>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <form method="post" action="@Url.Action("DeleteDelivery", "Admin")">
+                                            <input type="hidden" name="id" value="@item.Id"/>
+                                            <button type="submit" class="btn btn-danger">Edit</button>
+                                        </form>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <a asp-page="/Products/Product" class="btn btn-primary">
+                                            View Product
+                                        </a>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            }
+                        </table>
+                    }
+                    else
+                    {
+                        <div class="col-12 text-center">
+                            <div class="jumbotron">
+                                <h1>Products are not found!</h1>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,99 @@
+﻿<header class="header">
+    <div class="header-bottom sticky-top" id="header-nav">
+        <nav class="navbar navbar-expand-lg bg-dark" data-bs-theme="dark">
+            <div class="container-fluid">
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-expanded="false"
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="offcanvas offcanvas-start" id="offcanvasNavbar" tabindex="-1" aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas-header">
+                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav">
+                            <li class="nav-item">
+                                <a class="nav-link active" aria-current="page" asp-page="/Home/Index">Home</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">Catalog</a>
+                                <ul id="subcategoriesDropdown" class="dropdown-menu dropdown-menu-end">
+                                    <li>
+                                        <a class="dropdown-item arrow-down" href="javascript:void(0);" onclick="toggleSubcategories(this)">FirstCategory</a>
+                                        <ul class="subcategory-list">
+                                            <li class="dropdown-item">
+                                                <a class="dropdown-item" href="@Url.Action("Items", "Catalog")">Subcat</a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col- col-sm-4">
+                    <div class="header-top-account d-flex justify-content-end">
+                        <form id="searchForm" action="@Url.Action("Search", "Home")" method="get" onsubmit="return validateSearchForm()">
+                            <div class="input-group input-group-sm">
+                                <input type="text" class="form-control" name="text" id="searchInput" placeholder="Searching..." aria-label="Searching..." aria-describedby="button-search">
+                                <button class="btn btn-outline-warning btn-sm" type="submit" id="button-search">
+                                    GO
+                                </button>
+                            </div>
+                        </form>
+
+                        <a class="btn btn-sm" asp-page="/Shop/Cart">Cart</a>
+                        <a class="btn btn-sm" asp-page="/Shop/Orders">Orders</a>
+                        
+                        <div class="btn-group">
+                            <div class="dropdown">
+                                <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="true">Admin</button>
+                                <ul class="dropdown-menu">
+                                    <li> <a class="dropdown-item" asp-page="/Admin/AddProduct">Add product</a> </li>
+                                    <li> <a class="dropdown-item" asp-page="/Admin/AllProducts">Products</a> </li>
+                                    <li> <a class="dropdown-item" asp-page="/Admin/AllDeliveries">Deliveries</a> </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <a class="btn btn-sm" asp-page="/Account/SignUp" method="get">SignUp</a>
+                        <a class="btn btn-sm" asp-page="/Account/SignIn">SignIn</a>
+                        <form method="post" asp-page="/Home/Index" asp-page-handler="Logout">
+                            <button type="submit" class="btn btn-sm">Logout</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </nav>
+    </div>
+</header>
+
+<script>
+        document.querySelectorAll('.subcategory-list').forEach((sublist) => {
+            sublist.style.display = 'none';
+        });
+
+        function toggleSubcategories(element) {
+            var subcategories = element.nextElementSibling;
+            if (subcategories.style.display === 'none') {
+                subcategories.style.display = 'block';
+            } else {
+                subcategories.style.display = 'none';
+            }
+        }
+    </script>
+<script>
+        function validateSearchForm() {
+            var searchText = document.getElementById("searchInput").value.trim();
+            if (searchText === "") {
+                alert("Please enter a search term.");
+                return false; // Отменяем отправку формы, если строка пуста
+            }
+            return true; // Разрешаем отправку формы, если строка не пуста
+        }
+    </script>

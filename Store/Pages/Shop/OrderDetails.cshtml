@@ -1,0 +1,53 @@
+@page "{id:int}"
+@model Store.Pages.Shop.OrderDetails
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <nav class="breadcrumbs">
+                <ul>
+                    <li><a asp-page="/Home/Index">Home</a></li>
+                    <li><a asp-page="/Shop/Orders">Orders</a></li>
+                    <li><span>Order Details</span></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 mb-3">
+            <div class="order-details p-3 h-100 bg-white">
+                <div class="mb-3">
+                    <h3>Customer Information</h3>
+                    <p><strong>Name:</strong> Name</p>
+                    <p><strong>Email:</strong> Email</p>
+                    <p><strong>Address:</strong> Address, City, Country</p>
+                    <p><strong>Phone:</strong> Phone</p>
+                </div>
+
+                <div class="table-responsive">
+                    <h3>Products in this Order</h3>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Link To Product</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Quantity</td>
+                                    <td>Price$</td>
+                                </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

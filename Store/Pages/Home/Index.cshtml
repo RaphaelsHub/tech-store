@@ -1,0 +1,40 @@
+﻿@page
+@model IndexModel
+
+<div id="carousel" class="carousel slide carousel-fade">
+    <div class="carousel-inner h-25">
+        <div class="carousel-item active">
+            <img src="~/Images/laptop.jpg" class="d-block w-100" alt="Laptop image">
+            <div class="carousel-caption d-none d-md-block"></div>
+        </div>
+    </div>
+</div>
+
+<section class="featured-products">
+    <div class="container-fluid">
+        <div class="row mb-5">
+            <div class="col-12">
+                <h2 class="section-title">
+                    <span>Our products</span>
+                </h2>
+            </div>
+        </div>
+        <div class="row">
+            @if (Model.ProductsDto.Items.Any())
+            {
+                foreach (var product in Model.ProductsDto.Items)
+                {
+                    <partial name="_ProductCard" model="product"/>
+                }
+            }
+            else
+            {
+                <div class="col-12 text-center">
+                    <div class="jumbotron">
+                        <h1>No products found!</h1>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>

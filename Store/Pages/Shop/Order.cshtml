@@ -1,0 +1,73 @@
+@page
+@model Store.Pages.Shop.OrderModel
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <nav class="breadcrumbs">
+                <ul>
+                    <li>
+                        <a asp-page="/Home/Index">Home</a>
+                    </li>
+                    <li>
+                        <span>Checkout</span>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-lg-12 mb-3">
+            <div class="Checkout p-3 h-100 bg-white">
+                <h1 class="section-title h5">
+                    <span>Billing address</span>
+                </h1>
+                <div class="row g-3">
+                    <form method="post" class="needs-validation" novalidate>
+                        <div class="col-md-6">
+                            <label asp-for="OrderInfo.Name" class="form-label required"></label>
+                            <input asp-for="OrderInfo.Name" class="form-control" placeholder="John Doe"/>
+                            <span asp-validation-for="OrderInfo.Name" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="OrderInfo.Email" class="form-label required"></label>
+                            <input asp-for="OrderInfo.Email" class="form-control" placeholder="doe@mail.com"/>
+                            <span asp-validation-for="OrderInfo.Email" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="OrderInfo.Phone" class="form-label required"></label>
+                            <input asp-for="OrderInfo.Phone" class="form-control" placeholder="+123456789"/>
+                            <span asp-validation-for="OrderInfo.Phone" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="OrderInfo.Country" class="form-label required"></label>
+                            <input asp-for="OrderInfo.Country" class="form-control" placeholder="Country name"/>
+                            <span asp-validation-for="OrderInfo.Country" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="OrderInfo.City" class="form-label required"></label>
+                            <input asp-for="OrderInfo.City" class="form-control" placeholder="City name"/>
+                            <span asp-validation-for="OrderInfo.City" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label asp-for="OrderInfo.Address" class="form-label required"></label>
+                            <input asp-for="OrderInfo.Address" class="form-control" placeholder="Address"/>
+                            <span asp-validation-for="OrderInfo.Address" class="text-danger"></span>
+                        </div>
+                        <div class="col">
+                            <label asp-for="OrderInfo.Comment"></label>
+                            <textarea asp-for="OrderInfo.Comment" class="form-control" rows="3" placeholder="Order note..."></textarea>
+                        </div>
+
+                        <div class="d-grid mt-3">
+                            <button type="submit" class="btn btn-warning">Submit and confirm the order(Papa)</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

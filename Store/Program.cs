@@ -27,6 +27,12 @@ public class Program
         app.UseAuthorization();
 
         app.MapRazorPages();
+        
+        app.MapGet("/", context =>
+        {
+            context.Response.Redirect("/Home/Index");
+            return Task.CompletedTask;
+        });
 
         app.Run();
     }

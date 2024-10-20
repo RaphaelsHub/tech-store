@@ -6,4 +6,45 @@
         <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
 
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="wwwroot\Views\Shared\_Layout.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\Views\Account\Login.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\Views\Account\Registration.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\Views\Admin\EditProduct.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\Views\Admin\NewProduct.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\Views\Admin\ViewDelivery.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\Views\Admin\ViewProducts.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\Views\Cart\Buy.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\Views\Cart\Delivery.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\Views\Cart\MakeAnOrder.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\Views\Catalog\Item.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\Views\Catalog\Items.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\Views\Home\Error.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\Views\Home\Error404.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\Views\Home\Index.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\Views\Home\Search.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\Views\Home\ThanksForOrder.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\Views\Partials\Footer.cshtml" />
+      <_ContentIncludedByDefault Remove="wwwroot\Views\Partials\Header.cshtml" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <UpToDateCheckInput Remove="wwwroot\Views\Account\Login.cshtml" />
+      <UpToDateCheckInput Remove="wwwroot\Views\Account\Registration.cshtml" />
+      <UpToDateCheckInput Remove="wwwroot\Views\Admin\EditProduct.cshtml" />
+      <UpToDateCheckInput Remove="wwwroot\Views\Admin\NewProduct.cshtml" />
+      <UpToDateCheckInput Remove="wwwroot\Views\Admin\ViewDelivery.cshtml" />
+      <UpToDateCheckInput Remove="wwwroot\Views\Admin\ViewProducts.cshtml" />
+      <UpToDateCheckInput Remove="wwwroot\Views\Cart\Buy.cshtml" />
+      <UpToDateCheckInput Remove="wwwroot\Views\Cart\Delivery.cshtml" />
+      <UpToDateCheckInput Remove="wwwroot\Views\Cart\MakeAnOrder.cshtml" />
+      <UpToDateCheckInput Remove="wwwroot\Views\Catalog\Item.cshtml" />
+      <UpToDateCheckInput Remove="wwwroot\Views\Catalog\Items.cshtml" />
+      <UpToDateCheckInput Remove="wwwroot\Views\Home\Error.cshtml" />
+      <UpToDateCheckInput Remove="wwwroot\Views\Home\Error404.cshtml" />
+      <UpToDateCheckInput Remove="wwwroot\Views\Home\Index.cshtml" />
+      <UpToDateCheckInput Remove="wwwroot\Views\Home\Search.cshtml" />
+      <UpToDateCheckInput Remove="wwwroot\Views\Home\ThanksForOrder.cshtml" />
+    </ItemGroup>
+
 </Project>
