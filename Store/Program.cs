@@ -1,3 +1,7 @@
+using Store.DataAccess;
+using Microsoft.EntityFrameworkCore;
+using Store.ServiceMapper;
+
 namespace Store;
 
 public class Program
@@ -8,6 +12,11 @@ public class Program
 
         // Add services to the container.
         builder.Services.AddRazorPages();
+        builder.Services.AddAutoMapper(typeof(MappingProfile));
+        builder.Services.AddDbContext<StoreDbContext>(options =>
+        {
+            options.UseSqlServer(builder.Configuration.GetConnectionString("StoreDbContext"));
+        });
 
         var app = builder.Build();
 

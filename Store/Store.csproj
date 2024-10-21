@@ -51,4 +51,12 @@
       <Folder Include="Exceptions\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="13.0.1" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Store.DataAccess\Store.DataAccess.csproj" />
+    </ItemGroup>
+
 </Project>
