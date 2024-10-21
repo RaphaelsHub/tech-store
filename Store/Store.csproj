@@ -47,4 +47,8 @@
       <UpToDateCheckInput Remove="wwwroot\Views\Home\ThanksForOrder.cshtml" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Exceptions\" />
+    </ItemGroup>
+
 </Project>
