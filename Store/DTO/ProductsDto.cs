@@ -1,3 +1,3 @@
 namespace Store.DTO;
 
-public record ProductsDto(IEnumerable<ProductDto> Items);
+public record ProductsDto(List<ProductDto> Items);

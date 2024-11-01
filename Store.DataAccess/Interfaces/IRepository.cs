@@ -1,12 +1,11 @@
-using Store.DataAccess.Entities;
-
 namespace Store.DataAccess.Interfaces;
 
+// CRUD operations
 public interface IRepository<T> where T : class
 {
-    Task<List<T>> GetAll();
-    Task<T> Get(int id);
-    Task Create(T item);
-    Task Update(T item);
-    Task Delete(int id);
+    Task<bool> CreateAsync(T item);
+    Task<T?> GetAsync(uint id);
+    Task<IEnumerable<T>> GetAllAsync();
+    Task<bool> UpdateAsync(T item);
+    Task<bool> DeleteAsync(uint id);
 }

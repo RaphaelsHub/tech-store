@@ -34,7 +34,7 @@
                         </ul>
                     </div>
                 </div>
-                
+
                 <div class="col- col-sm-4">
                     <div class="header-top-account d-flex justify-content-end">
                         <form id="searchForm" action="@Url.Action("Search", "Home")" method="get" onsubmit="return validateSearchForm()">
@@ -48,14 +48,20 @@
 
                         <a class="btn btn-sm" asp-page="/Shop/Cart">Cart</a>
                         <a class="btn btn-sm" asp-page="/Shop/Orders">Orders</a>
-                        
+
                         <div class="btn-group">
                             <div class="dropdown">
                                 <button class="btn btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="true">Admin</button>
                                 <ul class="dropdown-menu">
-                                    <li> <a class="dropdown-item" asp-page="/Admin/AddProduct">Add product</a> </li>
-                                    <li> <a class="dropdown-item" asp-page="/Admin/AllProducts">Products</a> </li>
-                                    <li> <a class="dropdown-item" asp-page="/Admin/AllDeliveries">Deliveries</a> </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-page="/Admin/AddProduct">Add product</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-page="/Admin/AllProducts">Products</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" asp-page="/Admin/AllDeliveries">Deliveries</a>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
@@ -92,8 +98,8 @@
             var searchText = document.getElementById("searchInput").value.trim();
             if (searchText === "") {
                 alert("Please enter a search term.");
-                return false; // Отменяем отправку формы, если строка пуста
+                return false;
             }
-            return true; // Разрешаем отправку формы, если строка не пуста
+            return true;
         }
     </script>

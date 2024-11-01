@@ -1,26 +1,36 @@
 @page
 @model Store.Pages.Shop.Cart
+@{
+    var products = Model.Products;
+}
 
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
             <nav class="breadcrumbs">
                 <ul>
-                    <li><a asp-page="/Home/Index">Home</a></li>
-                    <li><span>Cart</span></li>
+                    <li>
+                        <a asp-page="/Home/Index">Home</a>
+                    </li>
+                    <li>
+                        <span>Cart</span>
+                    </li>
                 </ul>
             </nav>
-        </div>  
+        </div>
     </div>
 </div>
 
 <div class="container-fluid">
     <div class="row">
-        <div class="col-lg-8 mb-3">
-            <div class="cart-content p-3 h-100 bg-white">
-                <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead class="table-dark">
+        @* ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract *@
+        @if (products!=null && products.Products!=null && products.Products.Any())
+        {
+            <div class="col-lg-8 mb-3">
+                <div class="cart-content p-3 h-100 bg-white">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-dark">
                             <tr>
                                 <th class="text-center">Photo</th>
                                 <th class="text-center">Product name</th>
@@ -28,14 +38,21 @@
                                 <th class="text-center">Amount</th>
                                 <th class="text-center">Delete</th>
                             </tr>
-                        </thead>
-                        <tbody>
-                        @if(Model.Products.Products.Any())
-                        {
-                            @foreach (var product in @Model.Products.Products)
+                            </thead>
+                            <tbody>
+                            @foreach (var product in @products.Products)
                             {
                                 <tr>
-                                    <td class="align-middle text-center"> <img src="@product.Photo" alt="Product Image"></td>
+                                    <td class="align-middle text-center">
+                                        @if (product.Photo != null)
+                                        {
+                                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(product.Photo)" alt="Product Image" style="max-width: 80px; max-height: 80px;"/>
+                                        }
+                                        else
+                                        {
+                                        <img src="~/Images/productTemplate.png" alt="Product Image">
+                                        }
+                                    </td>
                                     <td class="align-middle text-center">@product.Name</td>
                                     <td class="align-middle text-center">@product.Price$</td>
                                     <td class="align-middle text-center">@product.Quantity</td>
@@ -50,64 +67,46 @@
                                     </td>
                                 </tr>
                             }
-                        }
-                        <tr>
-                            <td class="align-middle text-center"> <img src="~/Images/productTemplate.png" alt="Product Image"></td>
-                            <td class="align-middle text-center">Name</td>
-                            <td class="align-middle text-center">20$</td>
-                            <td class="align-middle text-center">100</td>
-                            <td class="align-middle text-center">
-                                <input type="hidden" name="cartItem.Id" value="id"/>
-                                <div class="input-group">
-                                    <input type="number" class="form-control mr-sm-2" name="cartItem.Quantity" value="countOfItems">
-                                    <button type="submit" class="btn btn-danger">Delete</button>
-                                </div>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-4 mb-3">
-            <div class="cart-summary p-3 sidebar">
-                <h5 class="section-title"><span>Cart Summary</span></h5>
-
-                <div class="d-flex justify-content-between my-3">
-                    <h6>Total price:</h6>
-                    <h6>@Model.Products.TotalPrice$</h6>
-                </div>
-
-                <div class="d-flex justify-content-between my-3 border-bottom">
-                    <h6>Price shipping:</h6>
-                    <h6>@Model.Products.DeliveryPrice$</h6>
-                </div>
-
-                <div class="d-flex justify-content-between my-3">
-                    <h3>Final cost:</h3>
-                    <h3>@Model.Products.DeliveryPrice + @Model.Products.TotalPrice$</h3>
-                </div>
-
-                <div class="d-grid">
-                    <a asp-page="/Shop/Order" class="btn btn-warning">Checkout</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-@if (Model.Products.Products.Any())
-{
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-lg-12 mb-3">
-                <div class="cart-content p-3 h-100 bg-white">
-                    <div class="text-center">
-                        <h3>Your cart is empty</h3>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
-        </div>
+
+            <div class="col-lg-4 mb-3">
+                <div class="cart-summary p-3 sidebar">
+                    <h5 class="section-title">
+                        <span>Cart Summary</span>
+                    </h5>
+
+                    <div class="d-flex justify-content-between my-3">
+                        <h6>Total price:</h6>
+                        <h6>@products.TotalPrice$</h6>
+                    </div>
+
+                    <div class="d-flex justify-content-between my-3 border-bottom">
+                        <h6>Price shipping:</h6>
+                        <h6>@products.DeliveryPrice$</h6>
+                    </div>
+
+                    <div class="d-flex justify-content-between my-3">
+                        <h3>Final cost:</h3>
+                        <h3>@products.Total$</h3>
+                    </div>
+
+                    <div class="d-grid">
+                        <a asp-page="/Shop/Order" class="btn btn-warning">Checkout</a>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="col-12 text-center">
+                <div class="jumbotron">
+                    <h1>Your cart is empty!</h1>
+                </div>
+            </div>
+        }
     </div>
-}
+</div>

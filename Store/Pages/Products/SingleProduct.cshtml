@@ -1,11 +1,15 @@
 @page
 @model Store.Pages.Products.SingleProduct
+@{
+    var product = Model.Product;
+}
 
+@* ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract *@
 @if (Model.Product == null)
 {
     <div class="col-12 d-flex justify-content-center align-items-center vh-100">
         <div class="jumbotron text-center">
-            <h1>Products are not found!</h1>
+            <h1>Product was not found!</h1>
         </div>
     </div>
 }
@@ -23,7 +27,7 @@ else
                             <a asp-page="/Products/AllProducts">Category</a>
                         </li>
                         <li>
-                            <span>@Model.Product?.Name</span>
+                            <span>@product.Category</span>
                         </li>
                     </ul>
                 </nav>
@@ -35,28 +39,50 @@ else
         <div class="row">
             <div class="col-md-5 col-lg-4 mb-3">
                 <div class="bg-white h-100 position-relative">
-                    <img src="@Model.Product?.Photo" class="d-block w-100" style="width: 200px; height: 430px; object-fit: cover;" alt="...">
+                    @* ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract *@
+                    @if (product.Photo != null)
+                    {
+                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(product.Photo)" alt="Product Image" style=" width: 400px; height: 400px; object-fit: cover;"/>
+                    }
+                    else
+                    {
+                        <img src="~/Images/productTemplate.png" alt="Product Image" style="width: 200px; height: 430px; object-fit: cover;">
+                    }
                 </div>
             </div>
 
             <div class="col-md-7 col-lg-8 mb-3">
                 <div class="bg-white product-content p-3 h-100">
                     <h1 class="section-title h3">
-                        <span>@Model.Product?.ShortDescription</span>
+                        <span>@product.Name</span>
                     </h1>
-                    <div class="product-price">@Model.Product?.Price$</div>
-                    <p>Description</p>
+                    <div class="product-price">@product.Price$</div>
+                    <p>@product.ShortDescription</p>
 
-                    <input type="hidden" name="cartItem.Id" value="id"/>
-                    <div class="input-group">
-                        <input type="number" class="form-control mr-sm-2" name="cartItem.Quantity" value="" min="0" max="" style="width: 80px;">
-                        <button type="submit" class="btn btn-warning">
-                            Add to cart
-                        </button>
-                    </div>
-                    <div class="alert alert-warning ml-sm-2 mt-2" role="alert">
-                        There are currently no products available.
-                    </div>
+                    @if (product.Quantity > 0)
+                    {
+                        <form method="post" asp-page="/Products/SingleProduct" asp-page-handler="AddProduct">
+                            <div class="input-group">
+                                <input type="number" class="form-control mr-sm-2" name="quantity" value="0" min="0" max="@product.Quantity" style="width: 80px;">
+                                <input type="hidden" name="id" value="@product.Id"/>
+                                <button type="submit" class="btn btn-warning">
+                                    Add to cart
+                                </button>
+                            </div>
+                        </form>
+                    }
+                    else
+                    {
+                        <div class="alert alert-warning ml-sm-2 mt-2" role="alert">
+                            There are currently no products available.
+                        </div>
+                    }
+
+
+                    <h2>
+                        <span>Full Description</span>
+                    </h2>
+                    <p>@product.FullDescription</p>
 
 
                     @if (TempData["Message"] != null)
@@ -65,93 +91,6 @@ else
                             @TempData["Message"]
                         </div>
                     }
-
-                    <div class="row mt-3">
-                        <div class="col-lg-4 mb-2">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        Guaranty
-                                    </h5>
-                                    <ul class="list-unstyled">
-                                        <li>1-year warranty</li>
-                                        <li>Return of goods within 14 day</li>
-                                        <li>Quality assurance</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 mb-2">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        Delivery
-                                    </h5>
-                                    <ul class="list-unstyled">
-                                        <li>Delivery throughout the country</li>
-                                        <li>Mail delivery</li>
-                                        <li>Pickup</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-4 mb-2">
-                            <div class="card h-100">
-                                <div class="card-body">
-                                    <h5 class="card-title">
-                                        Payment
-                                    </h5>
-                                    <ul class="list-unstyled">
-                                        <li>Cashless payment</li>
-                                        <li>VISA/MasterCard</li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-3">
-            <div class="col-12">
-                <div class="product-content-details bg-white p-4">
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="description-tab" data-bs-toggle="tab"
-                                    data-bs-target="#description-tab-pane" type="button" role="tab"
-                                    aria-controls="description-tab-pane"
-                                    aria-selected="true">
-                                Description
-                            </button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="features-tab" data-bs-toggle="tab"
-                                    data-bs-target="#features-tab-pane" type="button" role="tab"
-                                    aria-controls="features-tab-pane" aria-selected="false">
-                                Features
-                            </button>
-                        </li>
-                    </ul>
-                    <div class="tab-content" id="myTabContent">
-                        <div class="tab-pane fade show active" id="description-tab-pane" role="tabpanel"
-                             aria-labelledby="description-tab" tabindex="0">
-                            <p>@Model.Product?.FullDescription</p>
-                        </div>
-                        <div class="tab-pane fade" id="features-tab-pane" role="tabpanel"
-                             aria-labelledby="features-tab" tabindex="0">
-                            <table class="table">
-                                <tbody>
-                                <tr>
-                                    <th scope="row">FILTER</th>
-                                    <td> Options</td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

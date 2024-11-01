@@ -1,37 +1,37 @@
 using Microsoft.EntityFrameworkCore;
-using Store.DataAccess.Entities;
 using Store.DataAccess.Interfaces;
+using Store.DataAccess.ModelsEF;
 
 namespace Store.DataAccess.Repository;
 
-public class OrdersRepository(StoreDbContext dbContext) : IRepository<OrderEf>
+public class OrdersRepository(StoreDbContext db) : IRepository<OrderEf>
 {
-    public async Task<List<OrderEf>> GetAll() =>
-        await dbContext.Orders.AsNoTracking().ToListAsync();
-    
-    public async Task<OrderEf> Get(int id) => 
-        await dbContext.Orders.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
-    
-    public async Task Create(OrderEf item)
+    public async Task<IEnumerable<OrderEf>> GetAllAsync() =>
+        await db.Orders.AsNoTracking().ToListAsync();
+    public async Task<OrderEf?> GetAsync(uint id) => 
+        await db.Orders.AsNoTracking().FirstOrDefaultAsync(x => x.Id == (int)id);
+    public async Task<bool> CreateAsync(OrderEf item)
     {
-        await dbContext.Orders.AddAsync(item);
-        await dbContext.SaveChangesAsync();
+        await db.Orders.AddAsync(item);
+        await db.SaveChangesAsync();
+        return true;
     }
-
-    public async Task Update(OrderEf item)
+    public async Task<bool> UpdateAsync(OrderEf item)
     {
-        dbContext.Orders.Update(item);
-        await dbContext.SaveChangesAsync();
+        db.Orders.Update(item);
+        await db.SaveChangesAsync();
+        return true;
     }
-
-    public async Task Delete(int id)
+    public async Task<bool> DeleteAsync(uint id)
     {
-        var order = await dbContext.Orders.FirstOrDefaultAsync(x => x.Id == id);
+        var order = await db.Orders.FirstOrDefaultAsync(x => x.Id == id);
         
         if (order != null)
         {
-            dbContext.Orders.Remove(order);
-            await dbContext.SaveChangesAsync();
+            db.Orders.Remove(order);
+            await db.SaveChangesAsync();
         }
+        
+        return !db.Orders.Any(x => x.Id == (int)id);
     }
 }

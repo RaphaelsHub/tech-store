@@ -3,19 +3,19 @@ using System.ComponentModel.DataAnnotations;
 namespace Store.DTO;
 
 public record ProductDto(
-    int Id,
+    uint? Id = null,
     [Required]
-    byte[] Photo,
+    byte[]? Photo = null,
     [Required]
-    string Name,
+    string Name = "",
     [Required]
-    string ShortDescription,
+    string ShortDescription = "",
     [Required]
-    string FullDescription,
+    string FullDescription = "",
     [Required]
-    decimal Price,
+    decimal Price = 0,
     [Required]
-    uint Quantity,
+    uint Quantity = 0,
     [Required]
-    string Category
-    );
+    string Category = ""
+);

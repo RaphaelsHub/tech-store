@@ -1,37 +1,37 @@
-using System.Data.Entity;
-using Store.DataAccess.Entities;
 using Store.DataAccess.Interfaces;
+using Store.DataAccess.ModelsEF;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace Store.DataAccess.Repository;
 
-public class ProductsRepository(StoreDbContext dbContext) : IRepository<ProductEf>
+public class ProductsRepository(StoreDbContext db) : IRepository<ProductEf>
 {
-    public async Task<List<ProductEf>> GetAll() => 
-        await dbContext.Products.AsNoTracking().ToListAsync();
-    
-    public async Task<ProductEf> Get(int id) => 
-        await dbContext.Products.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
-
-    public async Task Create(ProductEf item)
+    public async Task<IEnumerable<ProductEf>> GetAllAsync() =>
+        await db.Products.AsNoTracking().ToListAsync();     
+    public async Task<ProductEf?> GetAsync(uint id) => 
+        await db.Products.AsNoTracking().FirstOrDefaultAsync(x => x.Id == (int)id);
+    public async Task<bool> CreateAsync(ProductEf item)
     {
-        await dbContext.Products.AddAsync(item);
-        await dbContext.SaveChangesAsync();
+        await db.Products.AddAsync(item);
+        await db.SaveChangesAsync();
+        return true;
     }
-
-    public async Task Update(ProductEf item)
+    public async Task<bool> UpdateAsync(ProductEf item)
     {
-        dbContext.Products.Update(item);
-        await dbContext.SaveChangesAsync();
+        db.Products.Update(item);
+        await db.SaveChangesAsync();
+        return true;
     }
-
-    public async Task Delete(int id)
+    public async Task<bool> DeleteAsync(uint id)
     {
-        var product = await dbContext.Products.FirstOrDefaultAsync(x => x.Id == id);
+        var product = await db.Products.FirstOrDefaultAsync(x => x.Id == (int)id);
         
         if (product != null)
         {
-            dbContext.Products.Remove(product);
-            await dbContext.SaveChangesAsync();
+            db.Products.Remove(product);
+            await db.SaveChangesAsync();
         }
+        return !db.Products.Any(x=> x.Id == (int)id);
     }
 }

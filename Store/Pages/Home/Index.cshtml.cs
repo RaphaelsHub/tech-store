@@ -1,25 +1,28 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Store.DataAccess.Interfaces;
+using Store.DataAccess.ModelsEF;
 using Store.DTO;
 
 namespace Store.Pages.Home;
 
-public class IndexModel : PageModel
+public class IndexModel(IRepository<ProductEf> repository, IMapper mapper) : PageModel
 {
-    private readonly ILogger<IndexModel> _logger;
-    public ProductsDto ProductsDto { get; set; } = new (new List<ProductDto>());
+    public ProductsDto ProductsDto { get; set; } = null!;
 
-    public IndexModel(ILogger<IndexModel> logger)
+    public async  Task<IActionResult> OnGetAsync()
     {
-        _logger = logger;
+        var productsEf = await repository.GetAllAsync();
+        var productDtoList = productsEf.Select(product => mapper.Map<ProductDto>(product)).ToList();
+        ProductsDto = new ProductsDto(productDtoList);
+        return Page();
     }
-
-    public void OnGet()
-    {
-    }
+    
     
     public async Task<IActionResult> OnPostLogoutAsync()
     {
+        
         //await HttpContext.SignOutAsync();
         return RedirectToPage("/Home/Index");
     }

@@ -1,5 +1,8 @@
 ﻿@page
 @model IndexModel
+@{
+    var products = Model.ProductsDto.Items;
+}
 
 <div id="carousel" class="carousel slide carousel-fade">
     <div class="carousel-inner h-25">
@@ -19,12 +22,13 @@
                 </h2>
             </div>
         </div>
+        
         <div class="row">
-            @if (Model.ProductsDto.Items.Any())
+            @if (products.Any())
             {
-                foreach (var product in Model.ProductsDto.Items)
+                foreach (var product in products)
                 {
-                    <partial name="_ProductCard" model="product"/>
+                    <partial name="Partials/_ProductCard" model="product"/>
                 }
             }
             else

@@ -1,37 +1,40 @@
 using Microsoft.EntityFrameworkCore;
-using Store.DataAccess.Entities;
 using Store.DataAccess.Interfaces;
+using Store.DataAccess.ModelsEF;
+
 
 namespace Store.DataAccess.Repository;
 
-public class AccountsRepository(StoreDbContext dbContext) : IRepository<AccountEf>
+public class AccountsRepository(StoreDbContext db) : IRepository<AccountEf>
 {
-    public async Task<List<AccountEf>> GetAll() => 
-        await dbContext.Accounts.AsNoTracking().ToListAsync();
-    
-    public async Task<AccountEf> Get(int id) => 
-        await dbContext.Accounts.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
-
-    public async Task Create(AccountEf accountEf)
+    public async Task<IEnumerable<AccountEf>> GetAllAsync() => 
+        await db.Accounts.AsNoTracking().ToListAsync();
+    public async Task<AccountEf?> GetAsync(uint id) => 
+        await db.Accounts.AsNoTracking().FirstOrDefaultAsync(x => x.Id == (int)id);
+    public async Task<bool> CreateAsync(AccountEf accountEf)
     {
-        await dbContext.Accounts.AddAsync(accountEf);
-        await dbContext.SaveChangesAsync();
+        await db.Accounts.AddAsync(accountEf);
+        await db.SaveChangesAsync();
+
+        return db.Accounts.Any(x => x.Email == accountEf.Email);
     }
-
-    public async Task Update(AccountEf accountEf)
+    public async Task<bool> UpdateAsync(AccountEf accountEf)
     {
-        dbContext.Accounts.Update(accountEf);
-        await dbContext.SaveChangesAsync();
+        db.Accounts.Update(accountEf);
+        await db.SaveChangesAsync();
+        
+        return true;
     }
-
-    public async Task Delete(int id)
+    public async Task<bool> DeleteAsync(uint id)
     {
-        var account = await dbContext.Accounts.FirstOrDefaultAsync(x => x.Id == id);
+        var account = await db.Accounts.FirstOrDefaultAsync(x => x.Id == (int)id);
         
         if (account != null)
         {
-            dbContext.Accounts.Remove(account);
-            await dbContext.SaveChangesAsync();
+            db.Accounts.Remove(account);
+            await db.SaveChangesAsync();
         }
+
+        return !db.Accounts.Any(x => x.Id == (int)id);
     }
 }

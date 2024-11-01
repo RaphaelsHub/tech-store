@@ -3,13 +3,16 @@ using Store.DTO;
 
 namespace Store.Pages.Home
 {
-    public class ErrorModel(ErrorDto errorDto) : PageModel
+    public class ErrorModel : PageModel
     {
-        public ErrorDto ErrorInfo { get; set; } = errorDto;
+        public ErrorDto Error { get; set; } = null!;
 
-        public void OnGet()
+        public void OnGet(string? errorCode = null, string? errorMessage = null)
         {
-            // Здесь можно добавить логику, если это необходимо
+            Error = new ErrorDto(
+                errorCode ?? "Unknown error",
+                errorMessage ?? "An unknown error occurred"
+            );
         }
     }
 }

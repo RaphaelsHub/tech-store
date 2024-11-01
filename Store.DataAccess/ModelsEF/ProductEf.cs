@@ -1,7 +1,10 @@
-namespace Store.DataAccess.Entities;
+using System.ComponentModel.DataAnnotations;
+
+namespace Store.DataAccess.ModelsEF;
 
 public class ProductEf
 {
+    [Key]
     public int Id { get; set; }
     public string? Name { get; set; }
     public string? ShortDescription { get; set; }

@@ -4,8 +4,5 @@ namespace Store.Pages.Home;
 
 public class ThanksForOrder : PageModel
 {
-    public void OnGet()
-    {
-        
-    }
+    public void OnGet(){}
 }
