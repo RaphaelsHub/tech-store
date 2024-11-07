@@ -4,8 +4,8 @@ namespace Store.DataAccess.Interfaces;
 public interface IRepository<T> where T : class
 {
     Task<bool> CreateAsync(T item);
-    Task<T?> GetAsync(uint id);
     Task<IEnumerable<T>> GetAllAsync();
+    Task<T?> GetAsync(uint id);
     Task<bool> UpdateAsync(T item);
     Task<bool> DeleteAsync(uint id);
 }

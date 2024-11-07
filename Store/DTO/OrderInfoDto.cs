@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 namespace Store.DTO;
 
 public record OrderInfoDto(
+    uint Id,
     [Required]
     string Name, 
     [Required]

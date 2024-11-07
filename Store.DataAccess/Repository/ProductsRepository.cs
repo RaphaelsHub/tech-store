@@ -8,9 +8,11 @@ namespace Store.DataAccess.Repository;
 public class ProductsRepository(StoreDbContext db) : IRepository<ProductEf>
 {
     public async Task<IEnumerable<ProductEf>> GetAllAsync() =>
-        await db.Products.AsNoTracking().ToListAsync();     
+        await db.Products.AsNoTracking().ToListAsync();
+
     public async Task<ProductEf?> GetAsync(uint id) => 
         await db.Products.AsNoTracking().FirstOrDefaultAsync(x => x.Id == (int)id);
+    
     public async Task<bool> CreateAsync(ProductEf item)
     {
         await db.Products.AddAsync(item);

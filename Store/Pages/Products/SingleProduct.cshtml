@@ -61,7 +61,7 @@ else
 
                     @if (product.Quantity > 0)
                     {
-                        <form method="post" asp-page="/Products/SingleProduct" asp-page-handler="AddProduct">
+                        <form method="post" asp-page="/Shop/Cart" asp-page-handler="AddProduct">
                             <div class="input-group">
                                 <input type="number" class="form-control mr-sm-2" name="quantity" value="0" min="0" max="@product.Quantity" style="width: 80px;">
                                 <input type="hidden" name="id" value="@product.Id"/>

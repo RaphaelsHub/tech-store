@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="InterfaceExtensions\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <PackageReference Include="EntityFramework6.Npgsql" Version="6.4.3" />
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0-rc.2.24474.1" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0-rc.2.24474.1">

@@ -9,21 +9,13 @@ public class StoreDbContext : DbContext
     {
         //CreateData();
     }
-
-
-
-
+    
     public DbSet<ProductEf> Products { get; set; }
     public DbSet<OrderEf> Orders { get; set; }
     public DbSet<AccountEf> Accounts { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<ProductEf>()
-            .Property(p => p.Price)
-            .HasColumnType("decimal(18,2)");
-        
-        
         // AccountEf
         modelBuilder.Entity<AccountEf>()
             .HasKey(m => m.Id);
@@ -35,29 +27,34 @@ public class StoreDbContext : DbContext
         modelBuilder.Entity<AccountEf>()
             .HasMany(m => m.CartProducts)
             .WithMany();
-
-
+        
         // ProductEf
         modelBuilder.Entity<ProductEf>()
             .HasKey(m => m.Id);
         
+        modelBuilder.Entity<ProductEf>()
+            .Property(p => p.Price)
+            .HasColumnType("decimal(18,2)");
         
         
         // OrderEf
         modelBuilder.Entity<OrderEf>()
             .HasKey(m => m.Id);
-
+        
+        modelBuilder.Entity<OrderEf>()
+            .HasOne(x=>x.Account)
+            .WithMany()
+            .HasForeignKey(x=>x.AccountId);
+        
         modelBuilder.Entity<OrderEf>()
             .HasMany(m => m.Products)
             .WithMany();
         
+        
+        // CartProductEf
+        modelBuilder.Entity<CartProductEf>()
+            .HasKey(m=>new {m.AccountId, m.ProductId});
        
-        
-
-        
-        modelBuilder.Entity<CartProductEf>()
-            .HasKey(m=>new {m.AccountId, m.ProductId});
-        
         modelBuilder.Entity<CartProductEf>()
             .HasOne(m => m.Account)
             .WithMany()
@@ -67,8 +64,8 @@ public class StoreDbContext : DbContext
             .HasOne(m => m.Product)
             .WithMany()
             .HasForeignKey(m => m.ProductId);
-        
-        
+
+        // OrderProductEf
         modelBuilder.Entity<OrderProductEf>()
             .HasKey(m=>new {m.AccountId, m.ProductId});
         
@@ -76,13 +73,11 @@ public class StoreDbContext : DbContext
             .HasOne(m => m.Account)
             .WithMany()
             .HasForeignKey(m => m.AccountId);
-
         
         modelBuilder.Entity<OrderProductEf>()
             .HasOne(m => m.Product)
             .WithMany()
             .HasForeignKey(m => m.ProductId);
-
     }
 }
 

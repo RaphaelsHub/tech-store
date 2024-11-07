@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+// ReSharper disable EntityFramework.ModelValidation.UnlimitedStringLength
 
 namespace Store.DataAccess.ModelsEF;
 
@@ -12,12 +13,6 @@ public class AccountEf
     public string? Number { get; init; }
     public string? PasswordHash { get; init; }
     
-    //many to many, один аккаунт может иметь много продуктов в корзине, один продукт может быть в корзине у многих аккаунтов
     public List<CartProductEf> CartProducts { get; init; } = new();
-    
-    
-    //one to many, один аккаунт может иметь много заказов, один заказ принадлежит одному аккаунту
     public List<OrderEf> Orders { get; init; } = new();
-    
-
 }

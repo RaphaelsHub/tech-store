@@ -1,8 +1,7 @@
-using Store.DataAccess.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Store.DataAccess.ModelsEF;
 
-namespace Store.DataAccess.InterfaceExtensions;
+namespace Store.DataAccess.Interfaces.InterfacesExtensions;
 
 public static class AccountRepositoryExtensions
 {

@@ -7,7 +7,7 @@ namespace Store.DataAccess.Repository;
 
 public class AccountsRepository(StoreDbContext db) : IRepository<AccountEf>
 {
-    public async Task<IEnumerable<AccountEf>> GetAllAsync() => 
+    public async Task<IEnumerable<AccountEf>> GetAllAsync() =>
         await db.Accounts.AsNoTracking().ToListAsync();
     public async Task<AccountEf?> GetAsync(uint id) => 
         await db.Accounts.AsNoTracking().FirstOrDefaultAsync(x => x.Id == (int)id);
@@ -37,4 +37,6 @@ public class AccountsRepository(StoreDbContext db) : IRepository<AccountEf>
 
         return !db.Accounts.Any(x => x.Id == (int)id);
     }
+    public async Task<AccountEf?> FindByEmailAsync(string email) => 
+        await db.Accounts.AsNoTracking().FirstOrDefaultAsync(x => x.Email == email);
 }

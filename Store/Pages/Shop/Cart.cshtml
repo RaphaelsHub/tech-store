@@ -24,7 +24,7 @@
 <div class="container-fluid">
     <div class="row">
         @* ReSharper disable once ConditionIsAlwaysTrueOrFalseAccordingToNullableAPIContract *@
-        @if (products!=null && products.Products!=null && products.Products.Any())
+        @if (products != null && products.Products != null && products.Products.Any())
         {
             <div class="col-lg-8 mb-3">
                 <div class="cart-content p-3 h-100 bg-white">
@@ -46,21 +46,23 @@
                                     <td class="align-middle text-center">
                                         @if (product.Photo != null)
                                         {
-                                        <img src="data:image/jpeg;base64,@Convert.ToBase64String(product.Photo)" alt="Product Image" style="max-width: 80px; max-height: 80px;"/>
+                                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(product.Photo)" alt="Product Image" style="max-width: 80px; max-height: 80px;"/>
                                         }
                                         else
                                         {
-                                        <img src="~/Images/productTemplate.png" alt="Product Image">
+                                            <img src="~/Images/productTemplate.png" alt="Product Image">
                                         }
                                     </td>
                                     <td class="align-middle text-center">@product.Name</td>
                                     <td class="align-middle text-center">@product.Price$</td>
+
                                     <td class="align-middle text-center">@product.Quantity</td>
+                                    
                                     <td class="align-middle text-center">
-                                        <form method="post">
-                                            <input type="hidden" name="cartItem.Id" value="@product.Id"/>
+                                        <form method="post" asp-page="/Shop/Cart" asp-page-handler="DeleteCartItem">
                                             <div class="input-group">
-                                                <input type="number" class="form-control mr-sm-2" name="cartItem.Quantity" value="@product.Quantity">
+                                                <input type="hidden" name="productId" value="@product.Id"/>
+                                                <input type="number" class="form-control mr-sm-2" name="Quantity" value="" min="0" max="@product.Quantity" style="width: 80px;">
                                                 <button type="submit" class="btn btn-danger">Delete</button>
                                             </div>
                                         </form>

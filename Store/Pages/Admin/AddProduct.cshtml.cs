@@ -15,7 +15,7 @@ public class AddProductModel(IRepository<ProductEf> repository, IMapper mapper) 
     {
         Product = id is null
             ? new ProductDto()
-            : mapper.Map<ProductDto>(await repository.GetAsync((uint)id));
+            : mapper.Map<ProductDto>(await repository.GetAsync((uint)id)) ?? new ProductDto();
 
         return Page();
     }

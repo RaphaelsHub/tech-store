@@ -2,8 +2,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Store.DataAccess;
-using Store.DataAccess.InterfaceExtensions;
 using Store.DataAccess.Interfaces;
+using Store.DataAccess.Interfaces.InterfacesExtensions;
 using Store.DataAccess.ModelsEF;
 using Store.DTO;
 
