@@ -1,9 +1,9 @@
- #ASP.NET Core Project Using Razor Pages and PostgreSQL
+# 📦 ASP.NET Core Razor Pages + PostgreSQL
 
-## Project Description
+Simple educational project built with **ASP.NET Core 8** using **Razor Pages** and **PostgreSQL**.
 
-This project is a simple web application developed using Razor Pages in ASP.NET Core 8. The main goal of the project is to get acquainted with Razor Pages and its capabilities. The project includes two main parts:
-- **Presentation Layer** - implementation of the user interface using Razor Pages.
-- **Database Layer** - data management using PostgreSQL.
+The goal is to explore:
+- Razor Pages as the **presentation layer**
+- PostgreSQL as the **data layer**
 
-The project is being developed for a classmate as part of learning how to work with Razor Pages and databases in ASP.NET Core.
+The project was created to learn how frontend (UI) and backend (data) work together in ASP.NET Core with real database support. Developed as part of a study collaboration and still in progress.
